@@ -49,8 +49,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('COVID-19'),
-        backgroundColor: Colors.orange,
+        title: const Text('COVID-19',style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w500)),
+        backgroundColor: Colors.pinkAccent[400],
       ),
       backgroundColor: Colors.black54,
       body: Center(
@@ -59,20 +59,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Icon(Icons.dashboard),
+            title: Text('Dashboard'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
+            icon: Icon(Icons.map),
+            title: Text('Map'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+            icon: Icon(Icons.assistant_photo),
+            title: Text('Countries'),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.pinkAccent[700],
+        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
     );
