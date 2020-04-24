@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:loading/loading.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:flutter/painting.dart';
+
 
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -26,14 +27,21 @@ class _HomePageState extends State<Home> {
   String e = '';
   String f = '';
 
+  String img1 = 'images/icon4.png';
+  String img2 = 'images/icon3.png';
+  String img3 = 'images/icon2.png';
+  String img4 = 'images/icon1.png';
+  String img5 = 'images/piechart.png';
+  String img6 = 'images/linechar.png';
+
   Map<String, double> dataMap = Map();
   List<Color> colorList = [
-    Colors.yellow[400],
-    Colors.lightBlueAccent,
-    Colors.lightGreen,
-    Colors.red[100],
-    Colors.greenAccent,
-    Colors.tealAccent,
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.deepPurple,
+    Colors.orange,
+    Colors.brown,
   ];
 
   @override
@@ -101,57 +109,70 @@ class _HomePageState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          color: Colors.pinkAccent[700],
-          child: toggle
-              ? Column(
-                  children: <Widget>[
+      backgroundColor: Colors.pinkAccent[700],
+      body: SafeArea(
+          child: toggle ? SingleChildScrollView(
+              child: Column( children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: PieChart(
-                          dataMap: dataMap,
-                          animationDuration: Duration(milliseconds: 800),
-                          chartLegendSpacing: 32.0,
-                          chartRadius: MediaQuery.of(context).size.width / 2,
-                          showChartValuesInPercentage: true,
-                          showChartValues: true,
-                          showChartValuesOutside: false,
-                          chartValueBackgroundColor: Colors.grey[200],
-                          colorList: colorList,
-                          showLegends: true,
-                          legendPosition: LegendPosition.right,
-                          legendStyle: TextStyle(color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
-                          decimalPlaces: 1,
-                          showChartValueLabel: true,
-                          initialAngle: 0,
-                          chartValueStyle: defaultChartValueStyle.copyWith(
-                            color: Colors.blueGrey[900].withOpacity(0.9),
-                            fontSize: 15.00,
-                          ),
-                          chartType: ChartType.ring,
-                        )),
-                    PieChartCompWithRow(
-                        context, 'Total Confirmed', a, 'Total Deaths', b),
-                    Spacer(),
-                    PieChartCompWithRow(
-                        context, 'Total Recovered', c, 'New Confirmed', d),
-                    Spacer(),
-                  ],
-                )
-              : Column(children: <Widget>[
-                  Center(
-                    child:
-                        Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.white,),
-                  )
-                ])),
+                      padding: EdgeInsets.only(top: 15.00),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: Colors.white,
+                            elevation: 10,
+                            child: Padding(
+                              padding: EdgeInsets.all(15.00),
+                                child: PieChart(
+                                  dataMap: dataMap,
+                                  animationDuration: Duration(milliseconds: 800),
+                                  chartLegendSpacing: 32.0,
+                                  chartRadius: MediaQuery.of(context).size.width / 2,
+                                  showChartValuesInPercentage: true,
+                                  showChartValues: true,
+                                  showChartValuesOutside: false,
+                                  chartValueBackgroundColor: Colors.grey[200],
+                                  colorList: colorList,
+                                  showLegends: true,
+                                  legendPosition: LegendPosition.right,
+                                  legendStyle: TextStyle(color: Colors.pinkAccent[700], fontSize: 10.00, fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+                                  decimalPlaces: 1,
+                                  showChartValueLabel: true,
+                                  initialAngle: 0,
+                                  chartValueStyle: defaultChartValueStyle.copyWith(
+                                    color: Colors.blueGrey[900].withOpacity(0.9),
+                                    fontSize: 15.00,
+                                  ),
+                                  chartType: ChartType.ring,
+                                )),
+                            )
+                        ),
+                        PieChartCompWithRow(context, 'Total Confirmed', a, 'Total Deaths', b, img1, img2),
+                        PieChartCompWithRow(context, 'Total Recovered', c, 'New Confirmed', d, img3,img4),
+                        PieChartCompWithRow(context, 'New Deaths', e, 'New Recovered', f, img5, img6),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10.00),
+                        ),
+                  ]
+              )
+          ): Column(children: <Widget>[
+            Center(
+              child:
+              Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.white,),
+            )
+          ])
+      )
     );
   }
 }
 
-Widget PieChartComp(BuildContext context, a, b) {
+Widget PieChartComp(BuildContext context, a, b, img) {
   // TODO: implement build
   return Container(
-    width: 200.00,
+    width: 170.00,
     height: 150.00,
     child: Card(
       shape: RoundedRectangleBorder(
@@ -159,45 +180,54 @@ Widget PieChartComp(BuildContext context, a, b) {
       ),
       color: Colors.white,
       elevation: 10,
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            a,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.pinkAccent[700], fontSize: 20.00, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
-          ),
-          Text(
-            b,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black, fontSize: 22.00, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
-          ),
-        ],
-      )),
+      child: Padding(
+        padding: EdgeInsets.all(10.00),
+        child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                    child: Text(
+                      a,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.pinkAccent[700], fontSize: 15.00, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
+                    )
+                ),
+                Expanded(
+                  child: Text(
+                    b,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 22.00, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Expanded(
+                    child: Image(image: AssetImage(img))
+                )
+              ],
+            )),
+      )
     ),
   );
 }
 
-Widget PieChartCompWithRow(BuildContext context, a, b, c, d) {
+Widget PieChartCompWithRow(BuildContext context, a, b, c, d, imgOne, imgTwo) {
   // TODO: implement build
   return Container(
     padding: EdgeInsets.all(5.00),
     child: Row(
       children: <Widget>[
-        PieChartComp(context, a, b),
+        PieChartComp(context, a, b, imgOne),
         Spacer(),
-        PieChartComp(context, c, d),
+        PieChartComp(context, c, d, imgTwo)
       ],
     ),
   );
 }
 
-Widget PieChartCompWithScroll(BuildContext context, a, b, c, d) {
-  // TODO: implement build
-  return Container(
-      height: 100.0,
-      child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-        Row(children: <Widget>[PieChartCompWithRow(context, a, b, c, d)])
-      ]));
-}
+//Widget PieChartCompWithScroll(BuildContext context, a, b, c, d, e, f) {
+//  return Container(
+//      height: 100.0,
+//      child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+//        Row(children: <Widget>[PieChartCompWithRow(context, a, b, c, d)])
+//      ]));
+//}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './home.dart';
+import './countryList.dart';
 import './map.dart';
 
 
@@ -39,10 +40,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 1: Business',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    CountryList(),
   ];
 
   @override
