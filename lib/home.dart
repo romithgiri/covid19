@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:loading/loading.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:flutter/painting.dart';
+import 'ConfigFile.dart' as cf;
 
 
 import 'package:flutter_sparkline/flutter_sparkline.dart';
@@ -46,7 +47,8 @@ class _HomePageState extends State<Home> {
 
   @override
   void initState() {
-    print('11111111111');
+    var aa = cf.Size.screenWidth;
+    print('11111111111 $aa');
     super.initState();
     asyncOperation().then((val) {
       print('22222222222222');
@@ -108,6 +110,7 @@ class _HomePageState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    cf.Size.init(context);
     return Scaffold(
       backgroundColor: Colors.pinkAccent[700],
       body: SafeArea(
@@ -172,8 +175,8 @@ class _HomePageState extends State<Home> {
 Widget PieChartComp(BuildContext context, a, b, img) {
   // TODO: implement build
   return Container(
-    width: 170.00,
-    height: 150.00,
+    width: cf.Size.screenWidth/2.1,
+    height: cf.Size.screenHeight/4.8,
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
