@@ -114,7 +114,7 @@ class TimeLineListPageState extends State<TimeLineList> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Icon(Icons.search,
-                                  color: Color(0xFFE511E5), size: 25.0),
+                                  color: Colors.pink, size: 25.0),
                               contentPadding:
                               EdgeInsets.only(left: 10.0, top: 12.0),
                               hintText: 'Search',

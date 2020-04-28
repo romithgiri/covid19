@@ -128,7 +128,7 @@ class _OwnCountryListPageState extends State<OwnCountryList> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Icon(Icons.search,
-                                  color: Color(0xFFE511E5), size: 25.0),
+                                  color: Colors.pink, size: 25.0),
                               contentPadding:
                               EdgeInsets.only(left: 10.0, top: 12.0),
                               hintText: 'Search',
@@ -308,18 +308,16 @@ Widget countryCard(BuildContext context, colorList, strTitle, valData) {
                   padding: EdgeInsets.only(left: 5.0, top:5.0),
                   child: Align(
                       alignment: Alignment.center,
-                      child: Expanded(
-                          child:
-                          Text(
-                            strTitle,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: cf.Size.blockSizeHorizontal*3.7,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w200),
-                          )
-                      )
+                      child:
+                        Text(
+                          strTitle,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: cf.Size.blockSizeHorizontal*3.7,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w200),
+                        )
                   ),
                 )
             ),

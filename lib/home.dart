@@ -8,7 +8,6 @@ import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:flutter/painting.dart';
 import 'ConfigFile.dart' as cf;
 
-
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
@@ -64,18 +63,12 @@ class _HomePageState extends State<Home> {
           d = nullValueCheck(jsonResponse['Global']['NewConfirmed']).toString();
           e = nullValueCheck(jsonResponse['Global']['NewDeaths']).toString();
           f = nullValueCheck(jsonResponse['Global']['NewRecovered']).toString();
-          dataMap.putIfAbsent("Total Confirmed",
-                  () => jsonResponse['Global']['TotalConfirmed'] + 00.00);
-          dataMap.putIfAbsent(
-              "Total Deaths", () => jsonResponse['Global']['TotalDeaths'] + 00.00);
-          dataMap.putIfAbsent("Total Recovered",
-                  () => jsonResponse['Global']['TotalRecovered'] + 00.00);
-          dataMap.putIfAbsent("New Confirmed",
-                  () => jsonResponse['Global']['NewConfirmed'] + 00.00);
-          dataMap.putIfAbsent(
-              "New Deaths", () => jsonResponse['Global']['NewDeaths'] + 00.00);
-          dataMap.putIfAbsent("New Recovered",
-                  () => jsonResponse['Global']['NewRecovered'] + 00.00);
+          dataMap.putIfAbsent("Total Confirmed", () => jsonResponse['Global']['TotalConfirmed'] + 00.00);
+          dataMap.putIfAbsent("Total Deaths", () => jsonResponse['Global']['TotalDeaths'] + 00.00);
+          dataMap.putIfAbsent("Total Recovered", () => jsonResponse['Global']['TotalRecovered'] + 00.00);
+          dataMap.putIfAbsent("Recent Confirmed", () => jsonResponse['Global']['NewConfirmed'] + 00.00);
+          dataMap.putIfAbsent("Recent Deaths", () => jsonResponse['Global']['NewDeaths'] + 00.00);
+          dataMap.putIfAbsent("Recent Recovered", () => jsonResponse['Global']['NewRecovered'] + 00.00);
         });
         await togglePieChart();
         return 0;
@@ -139,10 +132,10 @@ class _HomePageState extends State<Home> {
                                       colorList: colorList,
                                       showLegends: true,
                                       legendPosition: LegendPosition.right,
-                                      legendStyle: TextStyle(color: Colors.pinkAccent[700], fontSize: cf.Size.blockSizeHorizontal*2.8, fontFamily: 'Poppins', fontWeight: FontWeight.w300),
+                                      legendStyle: TextStyle(color: Colors.pinkAccent[700], fontSize: cf.Size.blockSizeHorizontal*2.5, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
                                       decimalPlaces: 1,
                                       showChartValueLabel: true,
-                                      initialAngle: 0,
+                                      initialAngle: 6,
                                       chartValueStyle: defaultChartValueStyle.copyWith(
                                         color: Colors.blueGrey[900].withOpacity(0.9),
                                         fontSize: cf.Size.blockSizeHorizontal*3.9,

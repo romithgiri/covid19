@@ -129,7 +129,7 @@ class _CountryListPageState extends State<CountryList> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Icon(Icons.search,
-                                  color: Color(0xFFE511E5), size: 25.0),
+                                  color: Colors.pink, size: 25.0),
                               contentPadding:
                                   EdgeInsets.only(left: 10.0, top: 12.0),
                               hintText: 'Search',
@@ -212,9 +212,9 @@ class _CountryListPageState extends State<CountryList> {
                             ),
                             horizontalScrolCard(
                               context,
-                              'New Confirmed',
-                              'New Recovered',
-                              'New Deaths',
+                              'Recent Confirmed',
+                              'Recent Recovered',
+                              'Recent Deaths',
                               colorList2,
                               listItems[index].newConfirmed,
                               listItems[index].newRecovered,
@@ -264,8 +264,7 @@ Widget countryCard(BuildContext context, colorList, strTitle, valData) {
                 padding: EdgeInsets.only(left: 5.0, top:5.0),
                 child: Align(
                     alignment: Alignment.center,
-                    child: Expanded(
-                        child:
+                    child:
                         Text(
                           strTitle,
                           textAlign: TextAlign.center,
@@ -275,7 +274,6 @@ Widget countryCard(BuildContext context, colorList, strTitle, valData) {
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w200),
                         )
-                    )
                 ),
               )
             ),

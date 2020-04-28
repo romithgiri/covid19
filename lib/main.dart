@@ -4,6 +4,8 @@ import './countryList.dart';
 import './india.dart';
 import 'timeLineView.dart';
 import 'contactUs.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'ConfigFile.dart' as cf;
 
 
 void main() {
@@ -43,54 +45,61 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 //    ContactUs()
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-      appBar: AppBar(
-        title: const Text('COVID-19 Dashboard',style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w500)),
-        backgroundColor: Colors.pink[600],
-      ),
-      backgroundColor: Colors.white,
-      body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              title: Text('Dashboard'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.assistant_photo),
-              title: Text('Countries'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              title: Text('India'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.timeline),
-              title: Text('Time Line for India'),
-            ),
-//            BottomNavigationBarItem(
-//              icon: Icon(Icons.email),
-//              title: Text('Contact Us'),
-//            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.pinkAccent[700],
-          unselectedItemColor: Colors.black,
-          onTap: _onItemTapped,
-      ),
-    )
-    );
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    cf.Size.init(context);
+    return Container(
+      height: cf.Size.screenHeight,
+        child: SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text('COVID-19 Dashboard',style: TextStyle(color: Colors.pink, fontFamily: 'Poppins', fontWeight: FontWeight.w500)),
+                backgroundColor: Colors.white,
+                elevation: 10.0,
+              ),
+              backgroundColor: Colors.white,
+              body: Center(
+                child: _widgetOptions.elementAt(_selectedIndex),
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.dashboard),
+                    title: Text('Dashboard'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.assistant_photo),
+                    title: Text('Countries'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite),
+                    title: Text('India'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.timeline),
+                    title: Text('Time Line for India'),
+                  ),
+//            BottomNavigationBarItem(
+//              icon: Icon(Icons.email),
+//              title: Text('Contact Us'),
+//            ),
+                ],
+                currentIndex: _selectedIndex,
+                showUnselectedLabels: true,
+                selectedItemColor: Colors.pinkAccent[700],
+                unselectedItemColor: Colors.black,
+                onTap: _onItemTapped,
+              ),
+            )
+        )
+    );
+  }
+
 }
+
