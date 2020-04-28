@@ -63,15 +63,15 @@ class _CountryListPageState extends State<CountryList> {
   List<CountryDataCls> filterData = List();
 
   List<Color> colorList = [
-    Color(0xFF69D2E7),
-    Color(0xFF7FC7AF),
-    Color(0xFFDAD8A7)
+    Colors.yellow,
+    Colors.cyan,
+    Colors.purple
   ];
 
   List<Color> colorList2 = [
-    Color(0xFFFF9E9D),
-    Color(0xFFFFAC5D),
-    Color(0xFFF2DE6E),
+    Colors.amber,
+    Colors.teal,
+    Colors.deepPurple
   ];
 
   @override
@@ -107,14 +107,14 @@ class _CountryListPageState extends State<CountryList> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            color: Colors.pinkAccent[700],
+            color: Colors.white,
             child: Column(children: <Widget>[
               Column(children: <Widget>[
                 Padding(
                     padding:
                         EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
                     child: Material(
-                      elevation: 5.0,
+                      elevation: 15.0,
                       borderRadius: BorderRadius.circular(30.0),
                       child: TextField(
                           onChanged: (value) {
@@ -147,7 +147,7 @@ class _CountryListPageState extends State<CountryList> {
                             child: Loading(
                               indicator: BallPulseIndicator(),
                               size: 100.0,
-                              color: Colors.white,
+                              color: Colors.pink[600],
                             ),
                           )
                         ]))
@@ -169,7 +169,7 @@ class _CountryListPageState extends State<CountryList> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     color: Colors.white,
-                    elevation: 10,
+                    elevation: 15,
                     child: Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Column(
@@ -181,7 +181,7 @@ class _CountryListPageState extends State<CountryList> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.pinkAccent[700],
-                                    fontSize: 20.00,
+                                    fontSize: cf.Size.blockSizeHorizontal*4.5,
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500),
                               ),
@@ -192,7 +192,7 @@ class _CountryListPageState extends State<CountryList> {
                                   listItems[index].date.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 15.00,
+                                      fontSize: cf.Size.blockSizeHorizontal*3.9,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w200),
                                 )
@@ -250,78 +250,63 @@ Widget horizontalScrolCard(BuildContext context, strConfirmed, strRecovered, str
       ]));
 }
 
-//Widget finalCardCall(BuildContext context) {
-//  // TODO: implement build
-//  cf.Size.init(context);
-//  return Container(
-//      color: Colors.deepPurple,
-//      width: cf.Size.screenWidth,
-//      child: Container(
-//        width: cf.Size.screenWidth,
-//        child: Column(
-//          children: <Widget>[
-//            Container(
-//              width: cf.Size.screenWidth,
-//              color: Colors.green,
-//              child: Row(
-//                children: <Widget>[
-//                  Expanded(
-//                    child: countryCard(context),
-//                  ),
-//                  Expanded(
-//                    child: countryCard(context),
-//                  )
-//                ],
-//              ),
-//            ),
-//          ],
-//        ),
-//      ));
-//}
-
 Widget countryCard(BuildContext context, colorList, strTitle, valData) {
   // TODO: implement build
   cf.Size.init(context);
   return Container(
-      width: cf.Size.screenWidth / 2.6,
+      width: cf.Size.screenWidth / 3.4,
       child: Align(
           alignment: Alignment.center,
           child: Column(children: <Widget>[
-            Wrap(
-              children: <Widget>[
-                Text(
-                  strTitle,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.00,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w200),
-                )
-              ],
+            Container(
+              height: cf.Size.screenHeight/12.5,
+              child: Padding(
+                padding: EdgeInsets.only(left: 5.0, top:5.0),
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Expanded(
+                        child:
+                        Text(
+                          strTitle,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: cf.Size.blockSizeHorizontal*3.7,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w200),
+                        )
+                    )
+                ),
+              )
             ),
             Container(
-              width: cf.Size.screenWidth / 2.6,
-              height: cf.Size.screenHeight / 5.5,
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    valData,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.00,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w200),
-                  )),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: colorList,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
+              width: cf.Size.screenWidth / 4,
+              height: cf.Size.screenHeight / 7.5,
+              child: Padding(
+                padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      valData,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: cf.Size.blockSizeHorizontal*3.9,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w200),
+                    )
+                ),
               ),
-            )
-          ])));
+              decoration: BoxDecoration(
+              shape: BoxShape.circle, color: colorList,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 1.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+          ),
+      ])
+  ));
 }
