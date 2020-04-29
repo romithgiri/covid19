@@ -6,6 +6,7 @@ import 'timeLineView.dart';
 import 'contactUs.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'ConfigFile.dart' as cf;
+import 'package:flutter/services.dart';
 
 
 void main() {
@@ -54,6 +55,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     cf.Size.init(context);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Container(
       height: cf.Size.screenHeight,
         child: SafeArea(
