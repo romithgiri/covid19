@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:loading/loading.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:flutter/painting.dart';
-
+import 'ConfigFile.dart' as cf;
 
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -46,49 +46,35 @@ class _HomePageState extends State<Home> {
 
   @override
   void initState() {
-    print('11111111111');
+    var aa = cf.Size.screenWidth;
     super.initState();
-    asyncOperation().then((val) {
-      print('22222222222222');
-    }).catchError((error, stackTrace) {
-      print("33333333333333: $error");
-    });
+    asyncOperation().then((val) {}).catchError((error, stackTrace) {});
   }
 
   Future<void> asyncOperation() async {
-//    setState(() {
-//    });
     var url = 'https://api.covid19api.com/summary';
     var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-
-      a = nullValueCheck(jsonResponse['Global']['TotalConfirmed']).toString();
-      b = nullValueCheck(jsonResponse['Global']['TotalDeaths']).toString();
-      c = nullValueCheck(jsonResponse['Global']['TotalRecovered']).toString();
-      d = nullValueCheck(jsonResponse['Global']['NewConfirmed']).toString();
-      e = nullValueCheck(jsonResponse['Global']['NewDeaths']).toString();
-      f = nullValueCheck(jsonResponse['Global']['NewRecovered']).toString();
-
-      dataMap.putIfAbsent("Total Confirmed",
-          () => jsonResponse['Global']['TotalConfirmed'] + 00.00);
-      dataMap.putIfAbsent(
-          "Total Deaths", () => jsonResponse['Global']['TotalDeaths'] + 00.00);
-      dataMap.putIfAbsent("Total Recovered",
-          () => jsonResponse['Global']['TotalRecovered'] + 00.00);
-      dataMap.putIfAbsent("New Confirmed",
-          () => jsonResponse['Global']['NewConfirmed'] + 00.00);
-      dataMap.putIfAbsent(
-          "New Deaths", () => jsonResponse['Global']['NewDeaths'] + 00.00);
-      dataMap.putIfAbsent("New Recovered",
-          () => jsonResponse['Global']['NewRecovered'] + 00.00);
-
-      await togglePieChart();
-      return 0;
-    } else {
-      print('5555555555555555555555555555: ${response.statusCode}.');
-      return 0;
-    }
+      if (response.statusCode == 200) {
+        setState(() {
+          var jsonResponse = convert.jsonDecode(response.body);
+          a = nullValueCheck(jsonResponse['Global']['TotalConfirmed']).toString();
+          b = nullValueCheck(jsonResponse['Global']['TotalDeaths']).toString();
+          c = nullValueCheck(jsonResponse['Global']['TotalRecovered']).toString();
+          d = nullValueCheck(jsonResponse['Global']['NewConfirmed']).toString();
+          e = nullValueCheck(jsonResponse['Global']['NewDeaths']).toString();
+          f = nullValueCheck(jsonResponse['Global']['NewRecovered']).toString();
+          dataMap.putIfAbsent("Total Confirmed", () => jsonResponse['Global']['TotalConfirmed'] + 00.00);
+          dataMap.putIfAbsent("Total Deaths", () => jsonResponse['Global']['TotalDeaths'] + 00.00);
+          dataMap.putIfAbsent("Total Recovered", () => jsonResponse['Global']['TotalRecovered'] + 00.00);
+          dataMap.putIfAbsent("Recent Confirmed", () => jsonResponse['Global']['NewConfirmed'] + 00.00);
+          dataMap.putIfAbsent("Recent Deaths", () => jsonResponse['Global']['NewDeaths'] + 00.00);
+          dataMap.putIfAbsent("Recent Recovered", () => jsonResponse['Global']['NewRecovered'] + 00.00);
+        });
+        await togglePieChart();
+        return 0;
+      } else {
+        return 0;
+      }
   }
 
   int nullValueCheck(data) {
@@ -108,8 +94,9 @@ class _HomePageState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    cf.Size.init(context);
     return Scaffold(
-      backgroundColor: Colors.pinkAccent[700],
+      backgroundColor: Colors.white,
       body: SafeArea(
           child: toggle ? SingleChildScrollView(
               child: Column( children: <Widget>[
@@ -123,45 +110,60 @@ class _HomePageState extends State<Home> {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             color: Colors.white,
-                            elevation: 10,
-                            child: Padding(
-                              padding: EdgeInsets.all(15.00),
-                                child: PieChart(
-                                  dataMap: dataMap,
-                                  animationDuration: Duration(milliseconds: 800),
-                                  chartLegendSpacing: 32.0,
-                                  chartRadius: MediaQuery.of(context).size.width / 2,
-                                  showChartValuesInPercentage: true,
-                                  showChartValues: true,
-                                  showChartValuesOutside: false,
-                                  chartValueBackgroundColor: Colors.grey[200],
-                                  colorList: colorList,
-                                  showLegends: true,
-                                  legendPosition: LegendPosition.right,
-                                  legendStyle: TextStyle(color: Colors.pinkAccent[700], fontSize: 10.00, fontFamily: 'Poppins', fontWeight: FontWeight.w300),
-                                  decimalPlaces: 1,
-                                  showChartValueLabel: true,
-                                  initialAngle: 0,
-                                  chartValueStyle: defaultChartValueStyle.copyWith(
-                                    color: Colors.blueGrey[900].withOpacity(0.9),
-                                    fontSize: 15.00,
-                                  ),
-                                  chartType: ChartType.ring,
-                                )),
+                            elevation: 15,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Over All',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.pinkAccent[700], fontSize: cf.Size.blockSizeHorizontal*5, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.all(15.00),
+                                    child: PieChart(
+                                      dataMap: dataMap,
+                                      animationDuration: Duration(milliseconds: 800),
+                                      chartLegendSpacing: 32.0,
+                                      chartRadius: MediaQuery.of(context).size.width / 2,
+                                      showChartValuesInPercentage: true,
+                                      showChartValues: true,
+                                      showChartValuesOutside: false,
+                                      chartValueBackgroundColor: Colors.grey[200],
+                                      colorList: colorList,
+                                      showLegends: true,
+                                      legendPosition: LegendPosition.right,
+                                      legendStyle: TextStyle(color: Colors.pinkAccent[700], fontSize: cf.Size.blockSizeHorizontal*2.5, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+                                      decimalPlaces: 1,
+                                      showChartValueLabel: true,
+                                      initialAngle: 6,
+                                      chartValueStyle: defaultChartValueStyle.copyWith(
+                                        color: Colors.blueGrey[900].withOpacity(0.9),
+                                        fontSize: cf.Size.blockSizeHorizontal*3.9,
+                                      ),
+                                      chartType: ChartType.ring,
+                                    )
+                                ),
+                              ],
                             )
-                        ),
-                        PieChartCompWithRow(context, 'Total Confirmed', a, 'Total Deaths', b, img1, img2),
-                        PieChartCompWithRow(context, 'Total Recovered', c, 'New Confirmed', d, img3,img4),
-                        PieChartCompWithRow(context, 'New Deaths', e, 'New Recovered', f, img5, img6),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10.00),
-                        ),
+                        )
+                    ),
+                    PieChartCompWithRow(context, 'Total Confirmed', a, 'Recent Confirmed', d, img1, img4),
+                    PieChartCompWithRow(context, 'Total Deaths', b, 'Recent Deaths', e, img2,img5),
+                    PieChartCompWithRow(context, 'Total Recovered', c, 'Recent Recovered', f, img3, img6),
+
+//                        PieChartCompWithRow(context, 'Total Confirmed', a, 'Total Deaths', b, img1, img2),
+//                        PieChartCompWithRow(context, 'Total Recovered', c, 'New Confirmed', d, img3,img4),
+//                        PieChartCompWithRow(context, 'New Deaths', e, 'New Recovered', f, img5, img6),
+
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10.00),
+                    ),
                   ]
               )
           ): Column(children: <Widget>[
             Center(
               child:
-              Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.white,),
+              Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.pink[600],),
             )
           ])
       )
@@ -172,14 +174,14 @@ class _HomePageState extends State<Home> {
 Widget PieChartComp(BuildContext context, a, b, img) {
   // TODO: implement build
   return Container(
-    width: 170.00,
-    height: 150.00,
+    width: cf.Size.screenWidth/2.1,
+    height: cf.Size.screenHeight/4.8,
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       color: Colors.white,
-      elevation: 10,
+      elevation: 15,
       child: Padding(
         padding: EdgeInsets.all(10.00),
         child: Center(
@@ -190,14 +192,14 @@ Widget PieChartComp(BuildContext context, a, b, img) {
                     child: Text(
                       a,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.pinkAccent[700], fontSize: 15.00, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
+                      style: TextStyle(color: Colors.pinkAccent[700], fontSize: cf.Size.blockSizeHorizontal*3.9, fontFamily: 'Poppins', fontWeight: FontWeight.w700),
                     )
                 ),
                 Expanded(
                   child: Text(
                     b,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black, fontSize: 22.00, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+                    style: TextStyle(color: Colors.black, fontSize: cf.Size.blockSizeHorizontal*4.5, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
                   ),
                 ),
                 Expanded(
